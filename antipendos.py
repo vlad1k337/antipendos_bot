@@ -14,7 +14,7 @@ from aiogram.types import Chat
 from aiogram.methods.send_message import SendMessage
 from aiogram.types import ChatPermissions
 
-TOKEN = "7345282634:AAFMesVpODS-xARmNmO2eLutsdnN_pqLcfE"
+TOKEN = sys.argv[1]
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 dp = Dispatcher()
