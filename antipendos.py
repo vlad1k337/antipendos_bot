@@ -29,7 +29,8 @@ async def command_start_handler(message: Message) -> None:
 async def message_handler(message: Message) -> None:
     permission = ChatPermissions(can_send_messages = False, can_send_audios = False, can_send_photos=False, can_send_documents = False, can_send_videos = False, can_send_other_messages=False, can_send_polls=False)
     cnt = len(re.findall('[a-zA-Z]', message.text))/len(message.text)
-    if cnt > 0.2:
+    tag = len(re.findall('.*\B@(?=\w{5,32}\b)[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*.*'))
+    if cnt > 0.2 and tag != len(message.text):
         await message.delete()
         await bot.restrict_chat_member(message.chat.id, message.from_user.id, permissions=permission, until_date=600)
         SendMessage(chat_id=message.from_user.id, text="Отдыхай, пендос")
