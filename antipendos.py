@@ -12,6 +12,7 @@ from aiogram.types import FSInputFile
 
 LATIN_BEGIN = 65
 LATIN_END = 122
+SKIP_CHARS = ["[", "\\", "]", "^", "_", "`"]
 
 TOKEN = sys.argv[1]
 
@@ -31,7 +32,7 @@ async def command_start_handler(message: Message) -> None:
 async def message_handler(message: Message) -> None:
     if message.text:
         for char in message.text:
-            if LATIN_BEGIN <= ord(char) <= LATIN_END:
+            if LATIN_BEGIN <= ord(char) <= LATIN_END and char not in set(SKIP_CHARS):
                 await message.delete()
                 video = FSInputFile(VIDEO_PATH)
                 sent_message = await bot.send_video(chat_id=message.chat.id, video=video, duration=10)
