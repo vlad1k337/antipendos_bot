@@ -14,11 +14,8 @@ LATIN_BEGIN = 65
 LATIN_END = 122
 
 TOKEN = sys.argv[1]
-<<<<<<< HEAD
+
 VIDEO_PATH = 'gif/higurashi.mp4'
-=======
-VIDEO_PATH = 'higurashi.mp4'
->>>>>>> e3f9189 (some)
 
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
