@@ -14,7 +14,11 @@ LATIN_BEGIN = 65
 LATIN_END = 122
 
 TOKEN = sys.argv[1]
+<<<<<<< HEAD
 VIDEO_PATH = 'gif/higurashi.mp4'
+=======
+VIDEO_PATH = 'higurashi.mp4'
+>>>>>>> e3f9189 (some)
 
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
@@ -38,6 +42,10 @@ async def message_handler(message: Message) -> None:
                 username = message.from_user.username or "No username"
                 current_time = datetime.now().strftime("%m/%d/%Y %H:%M:%S") #MM/DD/YYYY Format
                 log_message = f"{current_time}: Deleted message from user {username} (ID: {user_id}) in chat {message.chat.id}\n"
+<<<<<<< HEAD
+=======
+                
+>>>>>>> e3f9189 (some)
                 with open('log.txt', 'a', encoding='utf-8') as log_file:
                     log_file.write(log_message)
                 
