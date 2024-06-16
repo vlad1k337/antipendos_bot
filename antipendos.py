@@ -42,10 +42,7 @@ async def message_handler(message: Message) -> None:
                 username = message.from_user.username or "No username"
                 current_time = datetime.now().strftime("%m/%d/%Y %H:%M:%S") #MM/DD/YYYY Format
                 log_message = f"{current_time}: Deleted message from user {username} (ID: {user_id}) in chat {message.chat.id}\n"
-<<<<<<< HEAD
-=======
-                
->>>>>>> e3f9189 (some)
+
                 with open('log.txt', 'a', encoding='utf-8') as log_file:
                     log_file.write(log_message)
                 
