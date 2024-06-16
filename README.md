@@ -5,6 +5,6 @@ TelegramBot for restrcting pendos' activity.
 ``` Shell
 git clone https://github.com/vlad1k337/antipendos_bot/
 cd antipendos_bot
-python3 antipendos_bot.py
+python3 antipendos.py
 ```
 Must have aiogram python module installed! 
