@@ -1,20 +1,20 @@
 import asyncio 
 import sys
-import re
-import json 
 
-from aiogram import Bot, Dispatcher, html
+from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
-from aiogram.methods.delete_message import DeleteMessage
 from aiogram import Router
-from aiogram.types import Chat
-from aiogram.methods.send_message import SendMessage
-from aiogram.types import ChatPermissions
+from aiogram.types import FSInputFile
+
+LATIN_BEGIN = 65
+LATIN_END = 122
 
 TOKEN = sys.argv[1]
+VIDEO_PATH = 'higurashi.mp4'
+
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 dp = Dispatcher()
@@ -23,22 +23,25 @@ dp.include_router(router)
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    await message.answer("Привет, этот бот создан что бы унижать пендосов")
+    await message.answer("Привет, этот бот создан чтобы унижать пендосов")
 
 @dp.message()
 async def message_handler(message: Message) -> None:
-    permission = ChatPermissions(can_send_messages = False, can_send_audios = False, can_send_photos=False, can_send_documents = False, can_send_videos = False, can_send_other_messages=False, can_send_polls=False)
-    cnt = len(re.findall('[a-zA-Z]', message.text))/len(message.text)
-    if cnt > 0.2:
-        await message.delete()
-        await bot.restrict_chat_member(message.chat.id, message.from_user.id, permissions=permission, until_date=600)
-        SendMessage(chat_id=message.from_user.id, text="Отдыхай, пендос")
+    if message.text:
+        for char in message.text:
+            if LATIN_BEGIN <= ord(char) <= LATIN_END:
+                await message.delete()
+                video = FSInputFile(VIDEO_PATH)
+                sent_message = await bot.send_video(chat_id=message.chat.id, video=video, duration=10)
+                user_id = message.from_user.id
+                username = message.from_user.username or "No username"
+                print(f"Deleted message from user {username} (ID: {user_id}) in chat {message.chat.id}")
+                await asyncio.sleep(10) 
+                await bot.delete_message(chat_id=sent_message.chat.id, message_id=sent_message.message_id)
+                break
 
 async def main() -> None:
     await dp.start_polling(bot)
 
-
-
 if __name__ == "__main__":
     asyncio.run(main())
-    
