@@ -36,9 +36,8 @@ async def message_handler(message: Message) -> None:
                 sent_message = await bot.send_video(chat_id=message.chat.id, video=video, duration=10)
                 user_id = message.from_user.id
                 username = message.from_user.username or "No username"
-                current_time = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+                current_time = datetime.now().strftime("%m/%d/%Y %H:%M:%S") #MM/DD/YYYY Format
                 log_message = f"{current_time}: Deleted message from user {username} (ID: {user_id}) in chat {message.chat.id}\n"
-                # Записываем лог в файл log.txt
                 with open('log.txt', 'a', encoding='utf-8') as log_file:
                     log_file.write(log_message)
                 
