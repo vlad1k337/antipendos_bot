@@ -28,11 +28,16 @@ dp.include_router(router)
 async def command_start_handler(message: Message) -> None:
     await message.answer("Привет, этот бот создан чтобы унижать пендосов")
 
+def isPendos(char) -> bool:
+    if LATIN_BEGIN <= ord(char) <= LATIN_END and char not in set(SKIP_CHARS):
+        return True
+    else:
+        return False
 @dp.message()
 async def message_handler(message: Message) -> None:
     if message.text:
         for char in message.text:
-            if LATIN_BEGIN <= ord(char) <= LATIN_END and char not in set(SKIP_CHARS):
+            if isPendos(char):
                 await message.delete()
                 video = FSInputFile(VIDEO_PATH)
                 sent_message = await bot.send_video(chat_id=message.chat.id, video=video, duration=10)
