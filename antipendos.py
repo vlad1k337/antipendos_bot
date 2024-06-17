@@ -33,6 +33,7 @@ def log_message(username: str, message: str) -> None:
 
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 url_pattern = re.compile(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+tag_pattern = re.compile(r'.*\B@(?=\w{5,32}\b)[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*.*')
 
 dp = Dispatcher()
 router = Router(name=__name__)
@@ -48,8 +49,8 @@ async def message_handler(message: Message) -> None:
     if message.text:
         contains_lowercase = any(lower_begin <= ord(char) <= lower_end for char in message.text)
         contains_url = url_pattern.search(message.text)
-        
-        if contains_lowercase and not contains_url:
+        contains_tag = tag_pattern.search(message.text)
+        if contains_lowercase and not contains_url and not contains_tag:
             await message.delete()
             log_message(message.from_user.username, f"Видалено повідомлення від користувача {message.from_user.id}, яке містить літери.")
             video = FSInputFile(VIDEO_PATH)
