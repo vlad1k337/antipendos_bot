@@ -1,0 +1,11 @@
+services:
+  tgbot:
+    build: .
+    env_file: "token.env"
+    expose: 
+      - "4040"
+    develop: 
+      watch:
+        - action: sync
+          path: .
+          target: /code 
