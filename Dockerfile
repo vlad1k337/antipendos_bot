@@ -11,6 +11,6 @@ RUN pip install -r requirements.txt
 
 EXPOSE 4040
 
-CMD ["python3", "webhooks.py"] 
+CMD ["python3", "antipendos.py"] 
 
 
