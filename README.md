@@ -1,10 +1,18 @@
-# antipendos_bot
+# AntipendosBot
 TelegramBot for restrcting pendos' activity.
 
-### To run:
+### Installation:
 ``` Shell
 git clone https://github.com/vlad1k337/antipendos_bot/
-cd antipendos_bot
-python3 antipendos.py
 ```
-Must have aiogram python module installed! 
+Setup your ngrok tunnel, add URL to BASE_WEBHOOK_URL variable 
+
+#### Create token.env file, add your Telegram Token:
+``` Shell
+cat TELEGRAM_TOKEN=your_token > token.env
+```
+
+#### Run container:
+``` Shell
+docker compose up --watch
+```
