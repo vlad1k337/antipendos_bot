@@ -1,5 +1,5 @@
 # AntipendosBot
-TelegramBot for restrcting pendos' activity.
+TelegramBot for restrcting users activity.
 
 ### Installation:
 ``` Shell
